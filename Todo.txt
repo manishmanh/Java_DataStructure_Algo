@@ -1,0 +1,65 @@
+NOTE: if very few lines of a method requires synchronization then it is not recomended to synchronized entire method.
+
+eg:
+
+block level lock:-
+
+ 
+We can declared synchronized block as follows:
+- to get a lock of current of object.
+ synchronized(this){
+ ......
+ }
+- to get a lock of particular object.
+ synchronized(b){
+ ......
+ }
+- to get class level lock
+ synchronized(class_name.class){
+ ......
+ }
+ 
+NOTE: Lock concept applicable for object types and class types not for premitive types. We can't pass primitive types to synchronized block otherwise we get unexcepted typed exception.
+
+FAQS:
+1. what is synchronized keyword, where we can apply?
+2. explain advantage of synchronized keyword? - resolve data inconsistence
+3. advantages -> increases wait
+4. what is race condition? -> If mutiple threads are working on 1 object and causing data inconsistencey. this is known as race condition. 
+5. how to resolve race condition? -> we can use synchronized keyword to solve race condition.
+6. difference between class level lock and object level lock?
+7. what is a synchronized block?
+8. Advantages of synchronized block over synchronized method?
+9. Can a thread can acquire multiple locks simultaneously? -> yes but from different objects.
+10. What is a synchronized statement? statement inside synchronized statement.
+
+INTERTHREAD COMMUNICATION:
+
+-Threads can communicate with each other by using wait(), notify() notifyAll()
+-We can call wait(), notify() notifyAll() only inside synchronized area, if we ouside of it then we will get runtime exception : IlligatMonitorStateException.
+-All these 3 methods(wait(), notify() notifyAll()) is in object class not in thread class.
+-To call any of this method thread has to be the owner of the object. That means the thread should have lock of that object.
+-The thread should be inside synchronized area. Hence we call all these methods only from synchronized area. otherwise we will get runtime exception: IlligatMonitorStateException.
+
+
+- If a thread calls wait(), then it releases the lock immediately on that object and then goes to waiting state.
+- If a threads calls a notify(), it releases the lock but maynot immediately. 
+- Except wait(), notify() notifyAll(), there is no other method where thread releases a lock.
+monitor: https://www.programcreek.com/2011/12/monitors-java-synchronization-mechanism/
+
+
+Java multi threading has been implemrnted by two mode:-
+ - Green thread mode:- The thread which is managed completely by JVM without taking underlying OS Support. Very Few OS like SUN Solaries provide support for green thread model. Anyway green thread model is depecated and not recomended to use.
+ - Native OS model:-The thread which is managed by the JVM with the help of underlying OS is called native OS model. All windows based OS provide support for native OS model.
+ 
+=> How to stop a thread?
+- t.stop is like is killing a thread. So, stop is not recomended, it is deprecated.Thread state immediately goes to dead state. Killing a thread in middle of execution maynot release the resource.
+- we can stop a thread execution by using stop method of thread class, if we stop a thread immediately it will enter into dead state, anyway stop methos is deprecated and not recomended to stop.
+
+=>How to suspend and resume of a thread?
+- public void suspend()
+- public void resume()
+- t. suspend() ,t.resume()
+- we can suspend a thread by using suspend() of thread class, then immediately the thread will be entered into suspended state.
+- we can resume a suspended thread by using resume method of thread class, then suspended can continue its execution. 
+- Anyway these methods are deprecated and not recomended to use.
